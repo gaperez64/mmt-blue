@@ -5,3 +5,66 @@
 % If you want to split the blueprint content into several files then
 % the current file can be a simple sequence of \input. Otherwise It
 % can start with a \section or \chapter for instance.
+
+
+\section{Mealy Machines with Timers}
+
+A \emph{Mealy machine with timers} \(\mathcal{M}\) uses a finite set $X$ of
+\emph{timers}.  We fix a non-empty set \(I\) of \emph{inputs} and a non-empty
+set \(O\) of \emph{outputs}.
+From  
+\(X\),  
+we define the set
+\(\toevents{X} = \{\timeout{x} \mid x \in X\}\) of \emph{timeouts of \(X\)}, and
+write \(\actions{\M}\) for the set \(I \cup \toevents{X}\) of \emph{actions of
+\(\M\)}: %either
+reading an input (an \emph{input action}),
+or processing a timeout (a \emph{timeout action}).
+Finally, \(\updates{\M} = (X \times \natplus) \cup \{\bot\}\) is the set of
+\emph{updates of \(\M\)}, where $(x, c)$ means that timer $x$ is started with
+value $c$, and $\bot$ stands for no timer update.
+We impose certain
+constraints on the shape of 
+MMTs:
+\begin{itemize}
+  \item a timer must be explicitly started to become active,
+  \item a timer \(x\) can time out only when it is active, and
+  \item a \(\timeout{x}\)-transition may only restart \(x\) (if the update is
+not \(\bot\)).
+\end{itemize}
+
+\begin{definition}[Mealy machine with timers]\label{def:MMT}
+  A (partial, deterministic) \emph{Mealy machine with timers} (MMT, for short) is a tuple
+  \(\M = (X, Q, q_0, \activeTimers, \delta)\) where:
+  \begin{itemize}
+    \item
+    \(Q\) is a finite set of states, with \(q_0 \in Q\) the \emph{initial state},
+    \item
+    \(\activeTimers : Q \to \subsets{X}\) is a total function that assigns a
+    set of \emph{active} timers to each state,
+    and
+    \item
+    \(\delta : Q \times \actions{\M} \partto Q \times O \times \updates{\M}\)
+    is a \emph{partial} transition function that assigns a state-output-update triple to a
+    state-action pair.
+    We write \(q \xrightarrow[u]{i/o} q'\) if \(\delta(q, i) = (q', o, u)\).
+  \end{itemize}
+  An MMT 
+  \(\M\) is 
+  \emph{\sound} if for all \(q, q' \in Q\),
+  \(i \in \actions{\M}\), \(o \in O\), \(x \in X\), \(c \in \natplus\): $\activeTimers(q_0) = \emptyset$ and
+  \begin{align*}
+  q \xrightarrow[\bot]{i/o} q' \implies{} &
+    \activeTimers(q') \subseteq \activeTimers(q)
+  &
+  q \xrightarrow[(x, c)]{i/o} q' \implies{} &
+    x \in \activeTimers(q')
+    \land \activeTimers(q') \setminus \{x\} \subseteq \activeTimers(q)
+  \\
+  q \xrightarrow[\bot]{\timeout{x}/o} q' \implies{} &
+    x \in \activeTimers(q) \land x \not\in \activeTimers(q')
+  &
+  q \xrightarrow[(y, c)]{\timeout{x}/o} q' \implies {} &
+    x \in \activeTimers(q) \land x=y
+  \end{align*}
+\end{definition}
