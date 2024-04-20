@@ -2,11 +2,15 @@
 % both by the pdf version and the web version.
 % This should be most of your macros.
 
+\newtheorem{definition}{Definition}
+
+\newcommand{\M}{\mathcal{M}}
 \newcommand{\timeout}[1]{\mathit{to}[#1]}
 \newcommand{\toevents}[1]{\mathit{TO}[#1]}
 \newcommand{\nat}{{\mathbb N}}
 \newcommand{\natplus}{\nat_{>0}}
-\newcommand{\updates}{m}{{U({#1})}}
-\newcommand{\activeTimers}{}{{\chi}}
+\newcommand{\updates}[1]{{U({#1})}}
+\newcommand{\activeTimers}{{\chi}}
 \newcommand{\subsets}[1]{{\mathcal{P}}(#1)}
 \newcommand{\partto}{\rightharpoonup}
+\newcommand{\actions}[1]{{A({#1})}}

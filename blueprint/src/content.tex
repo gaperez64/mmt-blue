@@ -7,9 +7,9 @@
 % can start with a \section or \chapter for instance.
 
 
-\section{Mealy Machines with Timers}
+\chapter{Mealy Machines with Timers}
 
-A \emph{Mealy machine with timers} \(\mathcal{M}\) uses a finite set $X$ of
+A \emph{Mealy machine with timers} \(\M\) uses a finite set $X$ of
 \emph{timers}.  We fix a non-empty set \(I\) of \emph{inputs} and a non-empty
 set \(O\) of \emph{outputs}.
 From  
@@ -51,7 +51,7 @@ not \(\bot\)).
   \end{itemize}
   An MMT 
   \(\M\) is 
-  \emph{\sound} if for all \(q, q' \in Q\),
+  \emph{sound} if for all \(q, q' \in Q\),
   \(i \in \actions{\M}\), \(o \in O\), \(x \in X\), \(c \in \natplus\): $\activeTimers(q_0) = \emptyset$ and
   \begin{align*}
   q \xrightarrow[\bot]{i/o} q' \implies{} &
